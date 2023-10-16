@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\PenerbitController;
+use App\Http\Controllers\AnggotaController;
+
 
 
 /*
@@ -24,4 +27,10 @@ Route::get('/', function () {
 
 Route::resource('/kategori', KategoriController::class);
 Route::get('/kategori/{id}/delete', [KategoriController::class, 'destroy'])->name('category.destroy');
+
+Route::resource('/penerbit', PenerbitController::class);
+Route::get('/penerbit/{id}/delete', [PenerbitController::class, 'destroy'])->name('penerbit.destroy');
+
+Route::resource('/anggota', AnggotaController::class);
+Route::get('/anggota/{id}/delete', [AnggotaController::class, 'destroy'])->name('anggota.destroy');
 

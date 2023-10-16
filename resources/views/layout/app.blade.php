@@ -67,12 +67,15 @@
 
     <!-- JS Libraies -->
     @yield('script')
+    <script src="assets/modules/sweetalert/sweetalert.min.js"></script>
 
     <!-- Page Specific JS File -->
 
     <!-- Template JS File -->
     <script src="{{asset('assets/js/scripts.js')}}"></script>
     <script src="{{asset('assets/js/custom.js')}}"></script>
-</body>
 
+    @stack('script')
+
+</body>
 </html>

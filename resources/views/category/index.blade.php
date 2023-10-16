@@ -27,9 +27,9 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
+                            <th scope="col">Kode</th>
+                            <th scope="col">Nama</th>
+                            <th scope="col">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,11 +49,11 @@
                                 </form>
 
 
-                                <form action="/kategori/{{$item->id}}/delete" style="display : inline;">
+                                <form action="/kategori/{{$item->id}}/delete" style="display : inline;" id="delete-form">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger"><i
-                                            class="fa fa-trash"></i>hapus</button>
+                                    <button type="submit" class="btn btn-sm btn-danger" onclick ="confirmDelete()"><i
+                                            class="fa fa-trash"></i>hapus</button> 
 
                                 </form>
                             </td>
@@ -85,3 +85,25 @@
 @endif
 
 @endsection
+@push('script')
+<script>
+    function confirmDelete(){
+        event.preventDefault()  
+    swal({
+      title: 'Are you sure?',
+      text: 'Once deleted, you will not be able to recover this imaginary file!',
+      icon: 'warning',
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+      swal(
+        document.getElementById('delete-form').submit()
+      )
+      }
+    });
+}
+
+</script>
+@endpush

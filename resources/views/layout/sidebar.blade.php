@@ -28,7 +28,7 @@
             </li>
 
             <li class="dropdown">
-              <a href="/anggota" class="nav-link"><i class="fas fa-user"></i>
+              <a href="{{route('anggota.index')}}" class="nav-link"><i class="fas fa-user"></i>
               <span>Anggota</span></a>
               
             </li>

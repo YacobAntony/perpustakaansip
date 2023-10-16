@@ -11,16 +11,14 @@
         </button>
       </div>
       <div class="modal-body">
-      <form action = "{{route('kategori.store')}}" method="POST">
+      <form action = "{{route('penerbit.store')}}" method="POST">
         @csrf
   <div class="form-group">
     <label for="exampleInputEmail1">Kode</label>
     <input type="text" name="kode" class="form-control" id="exampleInputEmail1" placeholder="Ketikan Sesuatu">
     <small id="" ></small>
-</div>
+<tr></div>
 <div class="form-group">
-
-<tr>
     <label for="exampleInputEmail2">Nama</label>
     <input type="text" name="nama" class="form-control" id="exampleInputEmail2" placeholder="Ketikan Sesuatu">
     <small id="" ></small>

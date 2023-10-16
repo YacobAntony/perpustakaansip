@@ -7,12 +7,10 @@ use Illuminate\Http\Request;
 
 class PenerbitController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $penerbit = Penerbit::all();
+        return view('penerbit.index', compact ('penerbit'));
     }
 
     /**
@@ -20,7 +18,7 @@ class PenerbitController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -28,7 +26,13 @@ class PenerbitController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $penerbit = new penerbit;
+        $penerbit-> kode = $request->kode;
+        $penerbit-> nama = $request->nama;
+        $penerbit-> save();
+
+        return redirect('penerbit')->with('sukses', 'data disimpan') ;
     }
 
     /**
@@ -42,24 +46,37 @@ class PenerbitController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(penerbit $penerbit)
+    public function edit($id)
     {
-        //
+        $penerbit = penerbit::find($id);
+
+        return view ('penerbit.edit', compact('penerbit'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, penerbit $penerbit)
+    public function update(Request $request, $id)
     {
-        //
+        $penerbit = penerbit::find($id);
+        $penerbit-> kode = $request->kode;
+        $penerbit-> nama = $request->nama;
+        $penerbit-> update();
+
+        return redirect('penerbit')->with('sukses', 'data disimpan') ;
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(penerbit $penerbit)
+    public function destroy($id)
     {
-        //
+        $penerbit = penerbit :: find($id);
+        $penerbit->delete();
+
+        return redirect('penerbit')->with('sukses', 'data dihapus') ;
+
+
     }
 }
