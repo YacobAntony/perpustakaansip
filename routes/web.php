@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PenerbitController;
 use App\Http\Controllers\AnggotaController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\BukuController;
 
 
 
@@ -20,8 +23,16 @@ use App\Http\Controllers\AnggotaController;
 
 
 Route::get('/', function () {
-    return view('layout.app');
+    return view('auth.login');
 });
+
+route::get('/login',[AuthController::class, 'login'])->name('login');
+route::post('/postlogin',[AuthController::class, 'postlogin']);
+route::get('/logout',[AuthController::class, 'logout']);
+
+
+route::group(['middleware' => 'auth'], function(){
+route::get('/dashboard',[DashboardController::class, 'index']);
 
 // route::get('/kategori', [KategoriController::class, 'index'])->name('category.index');
 
@@ -32,5 +43,7 @@ Route::resource('/penerbit', PenerbitController::class);
 Route::get('/penerbit/{id}/delete', [PenerbitController::class, 'destroy'])->name('penerbit.destroy');
 
 Route::resource('/anggota', AnggotaController::class);
-Route::get('/anggota/{id}/delete', [AnggotaController::class, 'destroy'])->name('anggota.destroy');
+Route::resource('/buku', BukuController::class);
 
+
+});

@@ -58,8 +58,7 @@ class AnggotaController extends Controller
     'alamat' => $request->alamat,
     'foto' => $foto->hashName()
     
-]);
-        
+    ]);
         return redirect('anggota')->with('sukses', 'Data berhasil di simpan');
     }
 

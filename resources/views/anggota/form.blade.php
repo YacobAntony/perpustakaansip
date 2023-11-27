@@ -13,11 +13,13 @@
             <div class="card-body">
                 <form action="{{route('anggota.store')}}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="kode">kode</label>
                             <input type="text" name="kode" class="form-control" id="inputEmail4" placeholder="Kode">
                         </div>
+
                         <div class="form-group col-md-6">
                             <label for="nama">Nama</label>
                             <input type="nama" name="nama" class="form-control" id="inputPassword4" placeholder="Nama">
@@ -61,8 +63,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="foto">foto</label>
-                        <input type="file" class="form-control-file" name="foto" id="exampleFormControlFile1">
+                        <label for="gambar">gambar</label>
+                        <input type="file" class="form-control-file" name="gambar" id="exampleFormControlFile1">
                     </div>
                     </div>
                     <button type="submit" class="btn btn-primary">OK</button>

@@ -60,7 +60,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="alamat">Alamat</label>
-                                <textarea class="form-control" name="alamat" value ="{{$anggota->alamat}}" ></textarea>
+                                <textarea class="form-control" name="alamat" >{{$anggota->alamat}}</textarea>
                             </div>
                         </div>
                         <div class="col-md-12">

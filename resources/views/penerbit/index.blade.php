@@ -23,7 +23,7 @@
 
             </div>
             <div class="card-body">
-                <table class="table table-hover">
+                <table class="table table-hover" id="table-penerbit">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -42,22 +42,17 @@
 
                                 <!-- <a href="/penerbit/{{$item->id}}/edit" class="btn btn-sm btn-warning"><i class="fa fa-edit"></i></a> -->
 
-                                <form action="/penerbit/{{$item->id}}/delete" style="display : inline;" >
+                             
 
-                                    <a href="/penerbit/{{$item->id}}/edit" class="btn btn-sm btn-warning"><i
-                                            class="fa fa-edit"></i>Edit</a>
+                         <form action="/penerbit/{{$item->id}}" style="display : inline;" method="POST" id="delete-form">
                                     @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger" onclick ="confirmDelete()" ><i
-                                            class="fa fa-trash" ></i>hapus</button>
-
-
+                                    @method('delete')
+                                    <button type="submit" class="btn btn-sm btn-danger" data-id="{{$item->id}}"
+                                        onclick="confirmDelete(this)"><i class="fa fa-trash"></i>hapus</button>
+                                        <a href="/penerbit/{{$item->id}}/edit">Edit</a>
                                 </form>
 
-
-                                <form action="/penerbit/{{$item->id}}/delete" style="display : inline;"  id="delete-form" >
-                                    
-                                </form>
+    
                             </td>
 
                         </tr>
@@ -69,43 +64,49 @@
     </div>
     </div>
 </section>
-@endsection
+
 @include('penerbit.form')
-
-@section('script')
-<script src="{{asset('assets/modules/izitoast/js/iziToast.min.js')}}"></script>
-
-@include('category.form')
-
-@if (session('sukses'))
-<script>
-    iziToast.success({
-        title: '{{session('sukses')}}',
-        position: 'topRight'
-    })
-</script>
-@endif
-
 @endsection
+
+
 @push('script')
 <script>
-    function confirmDelete(){
-        event.preventDefault()
-    swal({
-      title: 'Are you sure?',
-      text: 'Once deleted, you will not be able to recover this imaginary file!',
-      icon: 'warning',
-      buttons: true,
-      dangerMode: true,
-    })
-    .then((willDelete) => {
-      if (willDelete) {
-      swal(
-        document.getElementById('delete-form').submit()
-      )
-      }
+    
+    @if(session('sukses'))
+    iziToast.success({
+      title:'Sukses', 
+      message: '{{session('sukses')}}',
+      position: 'topRight'
     });
-}
+    @endif
 
+ 
+    var data_penerbit = $(this).attr('data-id')
+    function confirmDelete(button) {
+    
+        event.preventDefault()
+        const id = button.getAttribute('data-id');
+        swal({
+                title: 'Apa Anda Yakin ?',
+                text: 'Anda akan menghapus ID: ' + id + '. Ketika Anda tekan OK, maka data tidak dapat dikembalikan !',
+                icon: 'warning',
+                buttons: true,
+                dangerMode: true,
+            })
+        .then((willDelete) => {
+            if (willDelete) {
+              const form = document.getElementById('delete-form');
+              // Setelah pengguna mengkonfirmasi penghapusan, Anda bisa mengirim form ke server
+              form.action = '/penerbit/' + id; // Ubah aksi form sesuai dengan ID yang sesuai
+              form.submit();
+            }
+        });
+    }
+    
+</script>
+<script>
+       $(document).ready( function () {
+    $('#table-penerbit').DataTable()
+     } );
 </script>
 @endpush
