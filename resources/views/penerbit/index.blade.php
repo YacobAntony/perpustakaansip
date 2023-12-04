@@ -49,7 +49,7 @@
                                     @method('delete')
                                     <button type="submit" class="btn btn-sm btn-danger" data-id="{{$item->id}}"
                                         onclick="confirmDelete(this)"><i class="fa fa-trash"></i>hapus</button>
-                                        <a href="/penerbit/{{$item->id}}/edit">Edit</a>
+                                        <a class="btn btn-sm btn-warning" href="/penerbit/{{$item->id}}/edit">Edit</a>
                                 </form>
 
     

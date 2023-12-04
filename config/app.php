@@ -169,7 +169,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Milon\Barcode\BarcodeServiceProvider::class,
-    ])->toArray(),
+        Barryvdh\DomPDF\ServiceProvider::class,
+        ])->toArray(),
 
     /*
     |--------------------------------------------------------------------------
@@ -186,6 +187,7 @@ return [
         // 'Example' => App\Facades\Example::class,
         'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,
         'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
-    ])->toArray(),
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+        ])->toArray(),
 
 ];

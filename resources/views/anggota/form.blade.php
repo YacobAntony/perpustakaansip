@@ -63,8 +63,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="gambar">gambar</label>
-                        <input type="file" class="form-control-file" name="gambar" id="exampleFormControlFile1">
+                        <label for="foto">foto</label>
+                        <input type="file" class="form-control-file" name="foto" id="exampleFormControlFile1">
                     </div>
                     </div>
                     <button type="submit" class="btn btn-primary">OK</button>

@@ -1,12 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\buku;
 use Illuminate\Http\Request;
 use App\Models\kategori;
 use App\Models\penerbit;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade\Pdf;
+
 class BukuController extends Controller
 {
     /**
@@ -18,7 +21,7 @@ class BukuController extends Controller
         $kategori = Kategori::all();
         $penerbit = Penerbit::all();
 
-        return view('buku.index', compact('buku','kategori','penerbit'));
+        return view('buku.index', compact('buku', 'kategori', 'penerbit'));
     }
 
     /**
@@ -34,26 +37,26 @@ class BukuController extends Controller
      */
     public function store(Request $request)
     {
-          $buku = new Buku;
+        $buku = new Buku;
 
         $gambar = $request->file('gambar');
         $gambar->storeAs('public/buku', $gambar->hashName());
         Buku::create([
 
 
-        'kode' => $request->kode,
-        'judul' => $request->judul,
-        'kategori_id' => $request->kategori,
-        'penerbit_id' => $request->penerbit,
-        'isbn' => $request->isbn,
-        'pengarang' => $request->pengarang,
-        'jumlah_halaman' => $request->jumlah_halaman,
-        'stok'=> $request->stok,
-        'tahun_terbit'=> $request->tahun_terbit,
-        'sinopsis' => $request->sinopsis,
-        'gambar' => $gambar->hashName()
-    
-    ]);
+            'kode' => $request->kode,
+            'judul' => $request->judul,
+            'kategori_id' => $request->kategori,
+            'penerbit_id' => $request->penerbit,
+            'isbn' => $request->isbn,
+            'pengarang' => $request->pengarang,
+            'jumlah_halaman' => $request->jumlah_halaman,
+            'stok' => $request->stok,
+            'tahun_terbit' => $request->tahun_terbit,
+            'sinopsis' => $request->sinopsis,
+            'gambar' => $gambar->hashName()
+
+        ]);
         return redirect('buku')->with('sukses', 'Data berhasil di simpan');
     }
 
@@ -62,7 +65,7 @@ class BukuController extends Controller
      */
     public function show(buku $buku)
     {
-      
+
     }
 
     /**
@@ -74,7 +77,7 @@ class BukuController extends Controller
         $kategori = Kategori::all();
         $penerbit = Penerbit::all();
 
-        return view('buku.edit', compact('buku','kategori','penerbit'));
+        return view('buku.edit', compact('buku', 'kategori', 'penerbit'));
     }
 
     /**
@@ -87,21 +90,21 @@ class BukuController extends Controller
 
         if ($request->hasFile('gambar')) {
             $gambar = $request->file('gambar');
-            $gambar->storeAs('public/buku/',$gambar->hashName());
+            $gambar->storeAs('public/buku/', $gambar->hashName());
 
-           
+
             $buku->update([
-        'kode' => $request->kode,
-        'judul' => $request->judul,
-        'kategori_id' => $request->kategori,
-        'penerbit_id' => $request->penerbit,
-        'isbn' => $request->isbn,
-        'pengarang' => $request->pengarang,
-        'jumlah_halaman' => $request->jumlah_halaman,
-        'stok'=> $request->stok,
-        'tahun_terbit'=> $request->tahun_terbit,
-        'sinopsis' => $request->sinopsis,
-        'gambar' => $gambar->hashName()
+                'kode' => $request->kode,
+                'judul' => $request->judul,
+                'kategori_id' => $request->kategori,
+                'penerbit_id' => $request->penerbit,
+                'isbn' => $request->isbn,
+                'pengarang' => $request->pengarang,
+                'jumlah_halaman' => $request->jumlah_halaman,
+                'stok' => $request->stok,
+                'tahun_terbit' => $request->tahun_terbit,
+                'sinopsis' => $request->sinopsis,
+                'gambar' => $gambar->hashName()
             ]);
         } else {
             $buku->update([
@@ -112,8 +115,8 @@ class BukuController extends Controller
                 'isbn' => $request->isbn,
                 'pengarang' => $request->pengarang,
                 'jumlah_halaman' => $request->jumlah_halaman,
-                'stok'=> $request->stok,
-                'tahun_terbit'=> $request->tahun_terbit,
+                'stok' => $request->stok,
+                'tahun_terbit' => $request->tahun_terbit,
                 'sinopsis' => $request->sinopsis,
             ]);
         }
@@ -127,10 +130,19 @@ class BukuController extends Controller
      */
     public function destroy($id)
     {
-      
+
         $buku = Buku::find($id);
         $buku->delete();
 
         return redirect('buku')->with('sukses', 'Data berhasil di hapus');
+    }
+
+    public function print($id)
+    {
+        $buku = Buku::find($id);
+
+        $pdf = Pdf::loadView('buku.print', compact('buku'));
+        $pdf->setPaper('A4');
+        return $pdf->stream('file.pdf');
     }
 }
